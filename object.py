@@ -16,7 +16,7 @@ class Object:
         screen.blit(self.image, (self.x, self.y))
 
     def get_width(self):
-        return self.image.get_width()/2
+        return self.image.get_width()
 
     def get_height(self):
         return self.image.get_height()/2

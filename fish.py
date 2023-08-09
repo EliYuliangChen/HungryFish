@@ -5,7 +5,13 @@ from object import Object
 class Fish(Object):
     def __init__(self, x, y, image_path, screen_width, screen_height, size):
         super().__init__(x, y, image_path)
-        self.velocity_x = random.uniform(2, 4) * random.choice([-1, 1])  # Random initial speed
+        self.original_image = pygame.image.load(image_path)  # Load the image once
+        self.flipped_image = pygame.transform.flip(self.original_image, True, False)  # Preload the flipped image
+        # Set velocity based on spawn position
+        if x < 0:  # spawning from the left
+            self.velocity_x = random.uniform(2, 4)  # move right
+        else:  # spawning from the right
+            self.velocity_x = random.uniform(-4, -2)  # move left
         self.velocity_y = 0  # No vertical movement
         self.screen_width = screen_width
         self.screen_height = screen_height
@@ -27,11 +33,13 @@ class Fish(Object):
         else:
             self.image = pygame.image.load(self.image_path)
 
-        super().update()
-        if self.x < 0 or self.x > self.screen_width:
+        
+        if self.x < -50 or self.x > self.screen_width + 50:
             self.alive = False
 
         self.current_change_time += 1 / 60
+
+        super().update()
 
     def draw(self, screen):
         if self.alive:  # Only draw the fish if it's alive
