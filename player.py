@@ -27,12 +27,11 @@ class Player(Object):
         else:
             self.image = self.original_image  # Preload the image
         # self.flipped_image = pygame.transform.flip(self.original_image, True, False)  # Preload the flipped image
+        
 
     def update(self):
         if self.is_game_over:
             return  # 如果游戏结束，不再更新玩家状态
-        
-        
 
         if self.is_accelerating:
             self.speed = self.accelerated_speed
